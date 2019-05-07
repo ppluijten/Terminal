@@ -19,7 +19,9 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'restore'
+    selectOrConfig: 'config'
+    nugetConfigPath: 'NuGet.Config'
 
 - task: VSBuild@1
   inputs:
@@ -31,7 +33,7 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.SourcesDirectory)'
