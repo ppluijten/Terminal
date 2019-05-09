@@ -9,16 +9,14 @@ trigger:
 pool:
   vmImage: 'VS2017-Win2016'
 
-variables:
-  solution: 'OpenConsole.sln'
-  buildPlatform: 'x64'
-  buildConfiguration: 'Release'
+#variables:
+#  solution: 'OpenConsole.sln'
+#  buildPlatform: 'x64'
+#  buildConfiguration: 'Release'
 
 steps:
 - checkout: self
   submodules: true
-  
-- task: NuGetToolInstaller@0
 
 - task: NuGetCommand@2
   inputs:
@@ -26,18 +24,25 @@ steps:
     selectOrConfig: 'config'
     nugetConfigPath: 'NuGet.Config'
 
+#- task: VSBuild@1
+#  inputs:
+#    solution: '$(solution)'
+#    platform: '$(buildPlatform)'
+#    configuration: '$(buildConfiguration)'
+
 - task: VSBuild@1
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    solution: 'src/cascadia/CascadiaPackage/CascadiaPackage.wapproj'
+    platform: 'x64'
+    configuration: 'Release'
+    msbuildArchitecture: 'x64'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)'
-    ArtifactName: 'drop'
+    PathtoPublish: 'src/cascadia/CascadiaPackage/bin/x64/Release'
+    ArtifactName: 'CascadiaAppxXml'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'src/cascadia/CascadiaPackage/AppPackages'
+    ArtifactName: 'CascadiaAppx'
