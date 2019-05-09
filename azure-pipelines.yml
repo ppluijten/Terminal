@@ -18,6 +18,8 @@ steps:
 - checkout: self
   submodules: true
 
+- task: NuGetToolInstaller@0
+
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
