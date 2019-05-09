@@ -9,11 +9,6 @@ trigger:
 pool:
   vmImage: 'VS2017-Win2016'
 
-#variables:
-#  solution: 'OpenConsole.sln'
-#  buildPlatform: 'x64'
-#  buildConfiguration: 'Release'
-
 steps:
 - checkout: self
   submodules: true
@@ -26,18 +21,11 @@ steps:
     selectOrConfig: 'config'
     nugetConfigPath: 'NuGet.Config'
 
-#- task: VSBuild@1
-#  inputs:
-#    solution: '$(solution)'
-#    platform: '$(buildPlatform)'
-#    configuration: '$(buildConfiguration)'
-
 - task: VSBuild@1
   inputs:
-    solution: 'src/cascadia/CascadiaPackage/CascadiaPackage.wapproj'
+    solution: 'OpenConsole.sln'
     platform: 'x64'
     configuration: 'Release'
-    msbuildArchitecture: 'x64'
 
 - task: PublishBuildArtifacts@1
   inputs:
